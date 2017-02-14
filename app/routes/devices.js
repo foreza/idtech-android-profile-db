@@ -3,6 +3,8 @@ const router = express.Router();
 
 const CryptoJS = require('crypto-js');
 
+const devicesUtils = require('../utilities/devices');
+
 router.post('/', (req, res) => {
 	const { manufacture, model, input_frq = 0, output_frq = 0, baud = 0,
 			rec_buff_size = 0, volume_adjust = 0, force_hedset = 0,
@@ -15,7 +17,15 @@ router.post('/', (req, res) => {
 
 	const profile_hash = CryptoJS.SHA256(sum.toString()).toString(CryptoJS.enc.Hex);
 
-	res.send(profile_hash);
+	const newDevice = { manufacture, model };
+
+	devicesUtils.createDevice(newDevice)
+		.then(createdDevice => res.json(createdDevice),
+			err => handleExistingDevice(res, err));
 });
+
+const handleExistingDevice = (res, err) => {
+	res.send(err);
+};
 
 module.exports = router;
