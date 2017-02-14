@@ -18,7 +18,6 @@ app.use(bodayParser.json());
 // Port for server is set here
 var port = process.env.PORT || 8080;
 
-
 // Routes start here
 // ======================
 

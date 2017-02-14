@@ -19,7 +19,12 @@ const router = express.Router();
 //     })
 
 router.post('/', (req, res) => {
-  res.sendStatus(200);
+	const { input_frq, output_frq, baud,
+			rec_buff_size, volume_adjust, force_hedset,
+			dir_output_wave, unimag_ii_suc, unimag_ii_fail,
+			shuttle_suc, shuttle_fail, unipay_suc,
+			unipay_fail, unipay_15_suc, unipay_15_fail,
+			unipay_iii_suc, unipay_iii_fail } = req.body;
 });
 
 module.exports = router;

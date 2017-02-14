@@ -1,7 +1,6 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
-
 var ProfileSchema = new Schema({
     profile_hash: String,
     input_frq: Number,
