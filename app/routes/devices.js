@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const CryptoJS = require('crypto-js');
-
 const devicesUtils = require('../utilities/devices');
+const profilesUtils = require('../utilities/profiles');
 
 router.post('/', (req, res) => {
 	const { manufacture, model, input_frq = 0, output_frq = 0, baud = 0,
@@ -13,9 +12,7 @@ router.post('/', (req, res) => {
 	if (!manufacture || !model)
 		res.sendStatus(400);
 
-	const sum = input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_hedset + dir_output_wave;
-
-	const profile_hash = CryptoJS.SHA256(sum.toString()).toString(CryptoJS.enc.Hex);
+	const profile_hash = profilesUtils.generateSHA256HexString(input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_hedset + dir_output_wave);
 
 	const newDevice = { manufacture, model };
 

@@ -20,6 +20,13 @@ var ProfileSchema = new Schema({
     unipay_15_fail: Number,
     unipay_iii_suc: Number,
     unipay_iii_fail: Number,
+    meta: {
+        created_at: {
+            type: Date,
+            default: Date.now
+        },
+        times_requested: { type:Number }
+    }
 });
 
 module.exports = mongoose.model('Profile', ProfileSchema);
