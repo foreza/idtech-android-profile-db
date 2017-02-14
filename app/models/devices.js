@@ -1,8 +1,6 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
-var ProfileSchema = require('./profiles');
-
 var DeviceSchema   = new Schema({
     manufacture: {
             type: String,

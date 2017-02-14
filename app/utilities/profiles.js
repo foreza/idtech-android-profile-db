@@ -16,7 +16,7 @@ profilesUtils.createProfile = newProfile => {
 }
 
 profilesUtils.generateSHA256HexString = data => {
-    return CryptoJS.SHA256(data.toString()).toString(CryptoJS.enc.Hex)
+    return CryptoJS.SHA256(data.toString()).toString(CryptoJS.enc.Hex);
 };
 
 module.exports = profilesUtils;

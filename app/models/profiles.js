@@ -8,7 +8,7 @@ var ProfileSchema = new Schema({
     baud: Number,
     rec_buff_size: Number,
     volume_adjust: Number,
-    force_hedset: Number,
+    force_headset: Number,
     dir_output_wave: Boolean,
     unimag_ii_suc: Number,
     unimag_ii_fail: Number,

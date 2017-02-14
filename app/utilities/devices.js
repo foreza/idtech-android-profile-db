@@ -13,4 +13,28 @@ devicesUtils.createDevice = newDevice => {
     });
 }
 
+devicesUtils.getDeviceByID = deviceID => {
+    return new Promise((resolve, reject) => {
+        devicesModel.findById(deviceID, (err, device) => {
+            if (err || !device)
+                reject(err);
+
+            resolve(device);
+        });
+    });
+};
+
+devicesUtils.getDeviceByIDAndPopulate = deviceID => {
+    return new Promise((resolve, reject) => {
+        devicesModel.findById(deviceID)
+            .populate('profiles')
+            .exec((err, device) => {
+                if (err || !device)
+                    reject(err);
+
+                resolve(device);
+            });
+    });
+}
+
 module.exports = devicesUtils;
