@@ -21,43 +21,12 @@ var port = process.env.PORT || 8080;
 
 // Routes start here
 // ======================
-// TODO - move routes into separate file
-
-var router = express.Router();
 
 // defining route for devices
-
-router.route('/devices')
-    // creating a devices
-    .post(function(request, response){
-
-        var device = new Device();
-        device.model = request.body.model;
-        device.manufacture = request.body.manufacture;
-        device.profiles = [];
-
-        device.save(function(error){
-            if (error){
-                response.send(error);
-            }
-
-            response.json({message:"device created"});
-        });
-    })
-
-    // get all devices
-    .get(function(request, response){
-        Device.find(function(error, devices){
-            if(error){
-                response.send(error);
-            }
-            response.json(devices);
-        });
-    });
+const devices = require("./app/routes/devices");
 
 // Registering the api routes is done here
-app.use('/api', router);
-
+app.use('/api/devices', devices);
 
 // ===========================================
 // ROUTES ends here
