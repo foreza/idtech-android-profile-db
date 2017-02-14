@@ -25,32 +25,26 @@ var port = process.env.PORT || 8080;
 
 var router = express.Router();
 
-
-// Creating a GET at route to make sure things are running
-router.get("/", function(request, response) {
-    response.json({message: "test get route hit"});
-});
-
 // defining route for devices
 
 router.route('/devices')
     // creating a devices
     .post(function(request, response){
-        
+
         var device = new Device();
         device.model = request.body.model;
         device.manufacture = request.body.manufacture;
         device.profiles = [];
-        
+
         device.save(function(error){
             if (error){
                 response.send(error);
             }
-            
+
             response.json({message:"device created"});
         });
     })
-    
+
     // get all devices
     .get(function(request, response){
         Device.find(function(error, devices){
