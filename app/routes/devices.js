@@ -16,11 +16,9 @@ router.post('/', (req, res) => {
 	const newProfile = createNewProfile(req.body);
 
 	profilesUtils.createProfile(newProfile)
-		.then(createdProfile => {
-			const newDevice = { manufacture, model, profiles: [createdProfile._id] };
-
-			createNewDeviceInCollection(res, newDevice)
-		}, err => res.sendStatus(400));
+		.then(createdProfile => devicesUtils.createDevice({ manufacture, model, profiles: [createdProfile._id] }), () => res.sendStatus(400))
+		.then(createdDevice => devicesUtils.getDeviceByIDAndPopulate(createdDevice._id), () => res.sendStatus(400))
+		.then(device => res.json(device), () => res.sendStatus(404));
 });
 
 const createNewProfile = profileObj => {
@@ -31,18 +29,6 @@ const createNewProfile = profileObj => {
 	const profile_hash = profilesUtils.generateSHA256HexString(input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_headset + dir_output_wave);
 
 	return { profile_hash, input_frq, output_frq, baud, rec_buff_size, volume_adjust, force_headset, dir_output_wave };
-};
-
-const createNewDeviceInCollection = (res, newDevice) => {
-	devicesUtils.createDevice(newDevice)
-		.then(createdDevice => respondWithPopulatedCreatedDevice(res, createdDevice._id),
-			err => res.sendStatus(400));
-};
-
-const respondWithPopulatedCreatedDevice = (res, deviceID) => {
-	devicesUtils.getDeviceByIDAndPopulate(deviceID)
-		.then(device => res.json(device),
-			err => res.sendStatus(404));
 };
 
 module.exports = router;
