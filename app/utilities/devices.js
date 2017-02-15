@@ -48,4 +48,17 @@ devicesUtils.getDeviceByManufactureAndModel = (manufacture, model) => {
     });
 };
 
+devicesUtils.getDeviceByManufactureAndModelAndPopulate = (manufacture, model) => {
+    return new Promise((resolve, reject) => {
+        devicesModel.find({ manufacture, model })
+            .populate('profiles')
+            .exec((err, device) => {
+                if (err || !device)
+                    reject(err);
+
+                resolve(device);
+            });
+    });
+};
+
 module.exports = devicesUtils;

@@ -14,7 +14,6 @@ router.post('/', (req, res) => {
 			// NOTE: It would be great if we can figure out a way to collapse the conditional inside this promise's resolve, the following promises are currently two levels deep (1 level deep would be ideal)
 
 			if (!device) { // Requested device does not exist in collection
-
 				const newProfile = createNewProfile(req.body);
 
 				profilesUtils.createProfile(newProfile)
@@ -29,6 +28,8 @@ router.post('/', (req, res) => {
 				const inputProfileHash = profilesUtils.generateSHA256HexString(input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_headset + dir_output_wave);
 
 				// TODO: Determine if the device already contains the same profile as the input one (check profile_hash) and if so, just return some status code (200?)
+
+				res.json({ device });
 
 				// TODO: If the device does not contain the input profile (its profile_hash is unique to the device), create a new profile and push it onto the device's profiles array
 
