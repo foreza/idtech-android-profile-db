@@ -4,10 +4,11 @@
   "description": "db of android profiles",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "~1.0.1",
+    "crypto-js": "^3.1.9-1",
     "express": "^4.14.1",
     "mongoose": "^4.8.1",
-    "nodemon": "^1.11.0",
-    "body-parser": "~1.0.1"
+    "nodemon": "^1.11.0"
   },
   "devDependencies": {},
   "scripts": {
