@@ -22,10 +22,10 @@ var port = process.env.PORT || 8080;
 // ======================
 
 // defining route for devices
-const devices = require("./app/routes/devices");
+const routes = require("./app/routes");
 
 // Registering the api routes is done here
-app.use('/api/devices', devices);
+app.use('/', routes);
 
 // ===========================================
 // ROUTES ends here

@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 
-const devicesUtils = require('../utilities/devices');
-const profilesUtils = require('../utilities/profiles');
+const devicesUtils = require('../../utilities/devices');
+const profilesUtils = require('../../utilities/profiles');
 
 router.post('/', (req, res) => {
 	const { manufacture, model } = req.body;
