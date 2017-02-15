@@ -34,13 +34,16 @@ router.post('/', (req, res) => {
 				const profileExists = checkIfProfileExists(device.profiles, inputProfileHash);
 
 				if (profileExists)
-					res.sendStatus(200); // Sending OK status but do nothing since the same profile already exists for the device.
+					return res.sendStatus(200); // Sending OK status but do nothing since the profile already exists for the device
 
-				res.json({ profileExists });
+				// Here, we know that the device exists but does not contain the input profile so we are adding it
 
-				// TODO: If the device does not contain the input profile (its profile_hash is unique to the device), create a new profile and push it onto the device's profiles array
+				const newProfile = createNewProfile(req.body);
 
-				res.sendStatus(501); // TODO: Remove this, currently used to prevent hanging
+				profilesUtils.createProfile(newProfile)
+					.then(createdProfile => devicesUtils.addProfileForDevice(device._id, createdProfile._id), () => res.sendStatus(400))
+					.then(updatedDevice => devicesUtils.getDeviceByIDAndPopulate(updatedDevice._id), () => res.sendStatus(400))
+					.then(device => res.json(device), () => res.sendStatus(404));
 			}
 		}, () => res.sendStatus(404));
 });

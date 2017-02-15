@@ -61,4 +61,15 @@ devicesUtils.getDeviceByManufactureAndModelAndPopulate = (manufacture, model) =>
     });
 };
 
+devicesUtils.addProfileForDevice = (deviceID, profileID) => {
+    return new Promise((resolve, reject) => {
+        devicesModel.findByIdAndUpdate(deviceID, { $push: { 'profiles': profileID } }, (err, updatedDevice) => {
+            if (err || !updatedDevice)
+                reject(err);
+
+            resolve(updatedDevice);
+        });
+    });
+};
+
 module.exports = devicesUtils;
