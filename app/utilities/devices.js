@@ -56,7 +56,7 @@ devicesUtils.getDeviceByManufactureAndModelAndPopulate = (manufacture, model) =>
                 if (err || !device)
                     reject(err);
 
-                resolve(device);
+                resolve(device[0]);
             });
     });
 };

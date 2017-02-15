@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
 	if (!manufacture || !model)
 		res.sendStatus(400);
 
-	devicesUtils.getDeviceByManufactureAndModel(manufacture, model)
+	devicesUtils.getDeviceByManufactureAndModelAndPopulate(manufacture, model)
 		.then(device => {
 			// NOTE: It would be great if we can figure out a way to collapse the conditional inside this promise's resolve, the following promises are currently two levels deep (1 level deep would be ideal)
 
@@ -27,9 +27,16 @@ router.post('/', (req, res) => {
 
 				const inputProfileHash = profilesUtils.generateSHA256HexString(input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_headset + dir_output_wave);
 
-				// TODO: Determine if the device already contains the same profile as the input one (check profile_hash) and if so, just return some status code (200?)
+				/*
+					QUESTION: Is there some way to leverage MongoDB/Mongoose to check if a specific profile exists for the device passed from the previous promise (i.e. 'device' variable)?
+								We are currently just iterating through the profiles array to check
+				*/
+				const profileExists = checkIfProfileExists(device.profiles, inputProfileHash);
 
-				res.json({ device });
+				if (profileExists)
+					res.sendStatus(200); // Sending OK status but do nothing since the same profile already exists for the device.
+
+				res.json({ profileExists });
 
 				// TODO: If the device does not contain the input profile (its profile_hash is unique to the device), create a new profile and push it onto the device's profiles array
 
@@ -46,6 +53,10 @@ const createNewProfile = profileObj => {
 	const profile_hash = profilesUtils.generateSHA256HexString(input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_headset + dir_output_wave);
 
 	return { profile_hash, input_frq, output_frq, baud, rec_buff_size, volume_adjust, force_headset, dir_output_wave };
+};
+
+const checkIfProfileExists = (profiles, profileHashToCheck) => {
+	return profiles.some(profile => profile.profile_hash === profileHashToCheck);
 };
 
 module.exports = router;
