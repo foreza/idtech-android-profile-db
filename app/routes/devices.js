@@ -12,8 +12,9 @@ router.post('/', (req, res) => {
 
 	devicesUtils.getDeviceByManufactureAndModel(manufacture, model)
 		.then(device => {
+			// NOTE: It would be great if we can figure out a way to collapse the conditional inside this promise's resolve, the following promises are currently two levels deep (1 level deep would be ideal)
+
 			if (!device) { // Requested device does not exist in collection
-				// NOTE: It would be great if we can figure out a way to collapse the conditional inside this promise's resolve, the following promises are currently two levels deep (1 level deep would be ideal)
 
 				const newProfile = createNewProfile(req.body);
 
@@ -31,6 +32,8 @@ router.post('/', (req, res) => {
 				// TODO: Determine if the device already contains the same profile as the input one (check profile_hash) and if so, just return some status code (200?)
 
 				// TODO: If the device does not contain the input profile (its profile_hash is unique to the device), create a new profile and push it onto the device's profiles array
+
+				res.sendStatus(501); // TODO: Remove this, currently used to prevent hanging
 			}
 		}, () => res.sendStatus(404));
 });
