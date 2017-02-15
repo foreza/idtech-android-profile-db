@@ -7,7 +7,7 @@ router.post('/', (req, res) => {
 	const { manufacture, model } = req.body;
 
 	if (!manufacture || !model)
-		res.sendStatus(400);
+		return res.sendStatus(400);
 
 	devicesUtils.getDeviceByManufactureAndModelAndPopulate(manufacture, model)
 		.then(device => {
