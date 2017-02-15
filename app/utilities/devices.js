@@ -43,7 +43,7 @@ devicesUtils.getDeviceByManufactureAndModel = (manufacture, model) => {
             if (err || !device)
                 reject(err);
 
-            resolve(device);
+            resolve(device[0]);
         });
     });
 };
