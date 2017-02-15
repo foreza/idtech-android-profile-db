@@ -18,8 +18,7 @@ router.post('/', (req, res) => {
 
 				profilesUtils.createProfile(newProfile)
 					.then(createdProfile => devicesUtils.createDevice({ manufacture, model, profiles: [createdProfile._id] }), () => res.sendStatus(400))
-					.then(createdDevice => devicesUtils.getDeviceByIDAndPopulate(createdDevice._id), () => res.sendStatus(400))
-					.then(device => res.json(device), () => res.sendStatus(404));
+					.then(() => res.sendStatus(200), () => res.sendStatus(400));
 			} else { // Requested device exists in the collection
 				const { input_frq = 0, output_frq = 0, baud = 0,
 						rec_buff_size = 0, volume_adjust = 0, force_headset = 0,
@@ -42,8 +41,7 @@ router.post('/', (req, res) => {
 
 				profilesUtils.createProfile(newProfile)
 					.then(createdProfile => devicesUtils.addProfileForDevice(device._id, createdProfile._id), () => res.sendStatus(400))
-					.then(updatedDevice => devicesUtils.getDeviceByIDAndPopulate(updatedDevice._id), () => res.sendStatus(400))
-					.then(device => res.json(device), () => res.sendStatus(404));
+					.then(() => res.sendStatus(200), () => res.sendStatus(400))
 			}
 		}, () => res.sendStatus(404));
 });
