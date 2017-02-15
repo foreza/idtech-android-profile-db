@@ -48,4 +48,28 @@ devicesUtils.getDeviceByManufactureAndModel = (manufacture, model) => {
     });
 };
 
+devicesUtils.getDeviceByManufactureAndModelAndPopulate = (manufacture, model) => {
+    return new Promise((resolve, reject) => {
+        devicesModel.find({ manufacture, model })
+            .populate('profiles')
+            .exec((err, device) => {
+                if (err || !device)
+                    reject(err);
+
+                resolve(device[0]);
+            });
+    });
+};
+
+devicesUtils.addProfileForDevice = (deviceID, profileID) => {
+    return new Promise((resolve, reject) => {
+        devicesModel.findByIdAndUpdate(deviceID, { $push: { 'profiles': profileID } }, (err, updatedDevice) => {
+            if (err || !updatedDevice)
+                reject(err);
+
+            resolve(updatedDevice);
+        });
+    });
+};
+
 module.exports = devicesUtils;
