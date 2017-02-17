@@ -72,4 +72,18 @@ devicesUtils.addProfileForDevice = (deviceID, profileID) => {
     });
 };
 
+// This utility lists all devices.
+devicesUtils.listAllDevices = () => {
+  return new Promise((resolve, reject) => {
+    devicesModel.find({}, function(err, deviceList) {
+      if (err){
+        reject(err);
+      }
+      resolve(deviceList);
+
+    });
+
+});
+};
+
 module.exports = devicesUtils;

@@ -3,7 +3,23 @@ const router = require('express').Router();
 const devicesUtils = require('../../utilities/devices');
 const profilesUtils = require('../../utilities/profiles');
 
+// TODO: Secure this route and disallow public usage of this route
+router.get('/', (req, res) => {
+
+	devicesUtils.listAllDevices().then(deviceList => {
+		if (!deviceList){
+			return res.sendStatus(400);
+		} else {
+			return res.send(deviceList);
+		}
+	});
+
+});
+
 router.post('/', (req, res) => {
+
+	console.log('hit!');
+
 	const { manufacture, model } = req.body;
 
 	if (!manufacture || !model)
