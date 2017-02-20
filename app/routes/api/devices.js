@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
 
 	console.log('hit!');
 
-	const { manufacture, model } = req.body;
+	const { manufacture, model, deviceProfile } = req.body;
 
 	if (!manufacture || !model)
 		return res.sendStatus(400);
@@ -54,10 +54,15 @@ router.post('/', (req, res) => {
 		}, () => res.sendStatus(404));
 });
 
-const createNewProfile = profileObj => {
-	const { input_frq = 0, output_frq = 0, baud = 0,
-			rec_buff_size = 0, volume_adjust = 0, force_headset = 0,
-			dir_output_wave = false } = profileObj;
+const createNewProfile = (profileBody) => {
+
+	const input_frq = profileBody.deviceProfile.input_frq;
+	const output_frq = profileBody.deviceProfile.output_frq;
+	const baud = profileBody.deviceProfile.baud;
+	const rec_buff_size = profileBody.deviceProfile.rec_buff_size;
+	const volume_adjust = profileBody.deviceProfile.volume_adjust;
+	const force_headset = profileBody.deviceProfile.force_headset;
+	const dir_output_wave = profileBody.deviceProfile.dir_output_wave;
 
 	const profile_hash = profilesUtils.generateSHA256HexString(input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_headset + dir_output_wave);
 
