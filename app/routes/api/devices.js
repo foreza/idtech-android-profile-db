@@ -5,16 +5,34 @@ const profilesUtils = require('../../utilities/profiles');
 
 // TODO: Secure this route and disallow public usage of this route
 router.get('/', (req, res) => {
-
-	devicesUtils.listAllDevices().then(deviceList => {
-		if (!deviceList){
-			return res.sendStatus(400);
-		} else {
-			return res.send(deviceList);
-		}
-	});
-
+	if(req.query.manufacture && req.query.model){
+		console.log(req.query);
+		devicesUtils.getDeviceByManufactureAndModelAndPopulate(req.query.manufacture, req.query.model)
+			.then(device => {
+				if(!device){
+					return res.sendStatus(404)
+				}else{
+					return res.send(device);
+				}
+			});
+	}	else{
+		devicesUtils.listAllDevices().then(deviceList => {
+			if (!deviceList){
+				return res.sendStatus(400);
+			} else {
+				return res.send(deviceList);
+			}
+		});
+	}
 });
+
+// router.get('/', (req, res)=>{
+// 	return res.send("req param is: " + req.query.model);
+// });
+
+/*
+
+*/
 
 router.post('/', (req, res) => {
 
