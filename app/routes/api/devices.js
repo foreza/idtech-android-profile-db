@@ -4,18 +4,48 @@ const devicesUtils = require('../../utilities/devices');
 const profilesUtils = require('../../utilities/profiles');
 
 // TODO: Secure this route and disallow public usage of this route
+//TODO: commet route
 router.get('/', (req, res) => {
-
-	devicesUtils.listAllDevices().then(deviceList => {
-		if (!deviceList){
-			return res.sendStatus(400);
-		} else {
-			return res.send(deviceList);
-		}
-	});
-
+	if(req.query.manufacture && req.query.model){
+		console.log(req.query);
+		devicesUtils.getDeviceByManufactureAndModelAndPopulate(req.query.manufacture, req.query.model)
+			.then(device => {
+				if(!device){
+					return res.sendStatus(404)
+				}else{
+					return res.send(device);
+				}
+			});
+	}	else{
+		devicesUtils.listAllDevices().then(deviceList => {
+			if (!deviceList){
+				return res.sendStatus(400);
+			} else {
+				return res.send(deviceList);
+			}
+		});
+	}
 });
 
+
+
+/*
+TODO: update route to handle a post with an associated profile
+{
+manufacture: test-manufacture,
+model : test-model,
+profile: {
+	input_frq : 0,
+	output_frq : 0,
+	baud : 0,
+	rec_buff_size : 0,
+	volume_adjust : 0,
+	force_headset : 0,
+	dir_output_wave : false
+	}
+}
+*/
+//TODO: comment route
 router.post('/', (req, res) => {
 
 	console.log('hit!');
