@@ -3,13 +3,34 @@ var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
     profile_hash: String,
-    input_frq: Number,
-    output_frq: Number,
-    baud: Number,
-    rec_buff_size: Number,
-    volume_adjust: Number,
-    force_headset: Number,
-    dir_output_wave: Boolean,
+    input_frq: {
+      type: Number,
+      default: 2400
+    },
+    output_frq: {
+      type: Number,
+      default: 4800
+    },
+    baud: {
+      type: Number,
+      default: 7200
+    },
+    rec_buff_size: {
+      type: Number,
+      default: 64
+    },
+    volume_adjust: {
+      type: Number,
+      default: 1
+    },
+    force_headset: {
+      type: Number,
+      default: 1
+    },
+    dir_output_wave: {
+      type: Boolean,
+      default: true
+    },
     unimag_ii_suc: Number,
     unimag_ii_fail: Number,
     shuttle_suc: Number,
