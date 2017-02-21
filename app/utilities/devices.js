@@ -2,6 +2,7 @@ const devicesModel =  require('../models/devices');
 
 const devicesUtils = {};
 
+// This utility creates a device based off of specified defaults.
 devicesUtils.createDevice = newDevice => {
     return new Promise((resolve, reject) => {
         devicesModel.create(newDevice, (err, createdDevice) => {
@@ -13,6 +14,7 @@ devicesUtils.createDevice = newDevice => {
     });
 }
 
+// This utility returns a device given a device ID
 devicesUtils.getDeviceByID = deviceID => {
     return new Promise((resolve, reject) => {
         devicesModel.findById(deviceID, (err, device) => {
@@ -24,6 +26,7 @@ devicesUtils.getDeviceByID = deviceID => {
     });
 };
 
+// This utility returns a device given the ID, and then populates with the associated profiles
 devicesUtils.getDeviceByIDAndPopulate = deviceID => {
     return new Promise((resolve, reject) => {
         devicesModel.findById(deviceID)
@@ -37,6 +40,7 @@ devicesUtils.getDeviceByIDAndPopulate = deviceID => {
     });
 }
 
+// This utility returns a device given a manufacture and model
 devicesUtils.getDeviceByManufactureAndModel = (manufacture, model) => {
     return new Promise((resolve, reject) => {
         devicesModel.find({ manufacture, model }, (err, device) => {
@@ -48,6 +52,7 @@ devicesUtils.getDeviceByManufactureAndModel = (manufacture, model) => {
     });
 };
 
+// This utility returns a device given a manufacture and model, and then populates with the associated profiles
 devicesUtils.getDeviceByManufactureAndModelAndPopulate = (manufacture, model) => {
     return new Promise((resolve, reject) => {
         devicesModel.find({ manufacture, model })
@@ -61,6 +66,7 @@ devicesUtils.getDeviceByManufactureAndModelAndPopulate = (manufacture, model) =>
     });
 };
 
+// This utility adds a profile to a specified device given a device ID and profile ID
 devicesUtils.addProfileForDevice = (deviceID, profileID) => {
     return new Promise((resolve, reject) => {
         devicesModel.findByIdAndUpdate(deviceID, { $push: { 'profiles': profileID } }, (err, updatedDevice) => {
@@ -72,7 +78,7 @@ devicesUtils.addProfileForDevice = (deviceID, profileID) => {
     });
 };
 
-// This utility lists all devices.
+// This utility lists all known devices in the DB
 devicesUtils.listAllDevices = () => {
   return new Promise((resolve, reject) => {
     devicesModel.find({}, function(err, deviceList) {
