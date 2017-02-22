@@ -8,8 +8,7 @@ const profilesUtils = {};
 profilesUtils.createProfile = newProfile => {
     return new Promise((resolve, reject) => {
         profilesModel.create(newProfile, (err, createdProfile) => {
-            if (err || !createdProfile)
-                reject(err);
+            if (err) reject(err);
 
             resolve(createdProfile);
         });
@@ -25,7 +24,7 @@ profilesUtils.generateSHA256HexString = data => {
 profilesUtils.findProfileByUniqueID = (profileID) => {
   return new Promise((resolve, reject) => {
     profilesModel.find({ _id : profileID}, (err, profile) => {
-      if (err || !profile){
+      if (err){
         reject(err);
       }
       resolve(profile);
@@ -38,7 +37,7 @@ profilesUtils.findProfileByUniqueID = (profileID) => {
 profilesUtils.listAllProfiles = () => {
   return new Promise((resolve, reject) => {
     profilesModel.find({}, (err, profileList) =>{
-      if (err || !profileList){
+      if (err){
         reject(err);
       }
       resolve(profileList);
