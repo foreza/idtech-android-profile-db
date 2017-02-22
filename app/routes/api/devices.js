@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
 					.then(createdProfile => devicesUtils.addProfileForDevice(device._id, createdProfile._id), () => res.sendStatus(400))
 					.then(() => res.sendStatus(201), () => res.sendStatus(400))
 			}
-		}, () => res.sendStatus(404));
+		}, () => res.sendStatus(400));
 });
 
 const createNewProfile = deviceProfile => {
