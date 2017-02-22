@@ -25,4 +25,17 @@ router.get('/:id', (req, res) => {
   })
 });
 
+router.patch('/increment/:id', (req, res) => {
+	const profileID = req.params.id;
+	const { reader, success } = req.body;
+
+	if (!profileID || !reader || !success)
+		return res.sendStatus(400);
+
+	const fieldToIncrement = `${ reader }_${ success ? "suc" : "fail" }`;
+
+	profilesUtils.incrementDeviceCounter(profileID, fieldToIncrement)
+		.then(() => res.sendStatus(200), () => res.sendStatus(400));
+});
+
 module.exports = router;

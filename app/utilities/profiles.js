@@ -45,4 +45,22 @@ profilesUtils.listAllProfiles = () => {
   });
 };
 
+profilesUtils.incrementDeviceCounter = (profileID, fieldToIncrement) => {
+    const incrementSpecifications = {};
+    incrementSpecifications[fieldToIncrement] = 1;
+
+    return new Promise((resolve, reject) => {
+        profilesModel.findByIdAndUpdate(
+            profileID,
+            { $inc: incrementSpecifications },
+            { new: true },
+            (err, updatedProfile) => {
+                if (err) reject(err);
+
+                resolve(updatedProfile);
+            }
+        );
+    });
+};
+
 module.exports = profilesUtils;
