@@ -6,8 +6,7 @@ const devicesUtils = {};
 devicesUtils.createDevice = newDevice => {
     return new Promise((resolve, reject) => {
         devicesModel.create(newDevice, (err, createdDevice) => {
-            if (err || !createdDevice)
-                reject(err);
+            if (err) reject(err);
 
             resolve(createdDevice);
         });
@@ -18,8 +17,7 @@ devicesUtils.createDevice = newDevice => {
 devicesUtils.getDeviceByID = deviceID => {
     return new Promise((resolve, reject) => {
         devicesModel.findById(deviceID, (err, device) => {
-            if (err || !device)
-                reject(err);
+            if (err) reject(err);
 
             resolve(device);
         });
@@ -32,8 +30,7 @@ devicesUtils.getDeviceByIDAndPopulate = deviceID => {
         devicesModel.findById(deviceID)
             .populate('profiles')
             .exec((err, device) => {
-                if (err || !device)
-                    reject(err);
+                if (err) reject(err);
 
                 resolve(device);
             });
@@ -44,8 +41,7 @@ devicesUtils.getDeviceByIDAndPopulate = deviceID => {
 devicesUtils.getDeviceByManufactureAndModel = (manufacture, model) => {
     return new Promise((resolve, reject) => {
         devicesModel.find({ manufacture, model }, (err, device) => {
-            if (err || !device)
-                reject(err);
+            if (err) reject(err);
 
             resolve(device[0]);
         });
@@ -58,23 +54,42 @@ devicesUtils.getDeviceByManufactureAndModelAndPopulate = (manufacture, model) =>
         devicesModel.find({ manufacture, model })
             .populate('profiles')
             .exec((err, device) => {
-                if (err || !device)
-                    reject(err);
+                if (err) reject(err);
 
                 resolve(device[0]);
             });
     });
 };
 
+devicesUtils.getDeviceByManufactureAndModelAndPopulateAndIncrementRequestedCount = (manufacture, model) => {
+    return new Promise((resolve, reject) => {
+        devicesModel.findOneAndUpdate(
+            { manufacture, model },
+            { $inc: { 'meta.times_requested': 1 } },
+            { new: true }
+        )
+        .populate('profiles')
+        .exec((err, updatedProfile) => {
+            if (err) reject(err);
+
+            resolve(updatedProfile);
+        });
+    });
+};
+
 // This utility adds a profile to a specified device given a device ID and profile ID
 devicesUtils.addProfileForDevice = (deviceID, profileID) => {
     return new Promise((resolve, reject) => {
-        devicesModel.findByIdAndUpdate(deviceID, { $push: { 'profiles': profileID } }, (err, updatedDevice) => {
-            if (err || !updatedDevice)
-                reject(err);
+        devicesModel.findByIdAndUpdate(
+            deviceID,
+            { $push: { 'profiles': profileID } },
+            { new: true },
+            (err, updatedDevice) => {
+                if (err) reject(err);
 
-            resolve(updatedDevice);
-        });
+                resolve(updatedDevice);
+            }
+        );
     });
 };
 
