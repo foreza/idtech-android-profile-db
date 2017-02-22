@@ -27,6 +27,9 @@ const routes = require("./app/routes");
 // Registering the api routes is done here
 app.use('/', routes);
 
+// Serve the files in the /views directory.
+app.use(express.static('app/views'));
+
 // ===========================================
 // ROUTES ends here
 
