@@ -56,14 +56,10 @@ router.post('/', (req, res) => {
 		}, () => res.sendStatus(404));
 });
 
-const createNewProfile = (profileBody) => {
-	const input_frq = profileBody.deviceProfile.input_frq;
-	const output_frq = profileBody.deviceProfile.output_frq;
-	const baud = profileBody.deviceProfile.baud;
-	const rec_buff_size = profileBody.deviceProfile.rec_buff_size;
-	const volume_adjust = profileBody.deviceProfile.volume_adjust;
-	const force_headset = profileBody.deviceProfile.force_headset;
-	const dir_output_wave = profileBody.deviceProfile.dir_output_wave;
+const createNewProfile = profileBody => {
+	const { input_frq, output_frq, baud,
+			rec_buff_size, volume_adjust, force_headset,
+			dir_output_wave } = profileBody.deviceProfile;
 
 	const profile_hash = profilesUtils.generateSHA256HexString(input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_headset + dir_output_wave);
 
