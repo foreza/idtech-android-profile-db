@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
 			if (!device) { // Requested device does not exist in collection
 				profilesUtils.createProfile(newProfile)
 					.then(createdProfile => devicesUtils.createDevice({ manufacture, model, profiles: [createdProfile._id] }), () => res.sendStatus(400))
-					.then(() => res.sendStatus(200), () => res.sendStatus(400));
+					.then(() => res.sendStatus(201), () => res.sendStatus(400));
 			} else { // Requested device exists in the collection
 				const profileExists = checkIfProfileExists(device.profiles, newProfile.profile_hash);
 
@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
 				// Here, we know that the device exists but does not contain the new profile so we are adding it
 				profilesUtils.createProfile(newProfile)
 					.then(createdProfile => devicesUtils.addProfileForDevice(device._id, createdProfile._id), () => res.sendStatus(400))
-					.then(() => res.sendStatus(200), () => res.sendStatus(400))
+					.then(() => res.sendStatus(201), () => res.sendStatus(400))
 			}
 		}, () => res.sendStatus(404));
 });
