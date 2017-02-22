@@ -31,12 +31,12 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
 	const { manufacture, model, deviceProfile } = req.body;
 
-	if (!manufacture || !model)
+	if (!manufacture || !model || !deviceProfile)
 		return res.sendStatus(400);
 
 	devicesUtils.getDeviceByManufactureAndModelAndPopulate(manufacture, model)
 		.then(device => {
-			const newProfile = createNewProfile(req.body);
+			const newProfile = createNewProfile(deviceProfile);
 
 			if (!device) { // Requested device does not exist in collection
 				profilesUtils.createProfile(newProfile)
@@ -56,10 +56,10 @@ router.post('/', (req, res) => {
 		}, () => res.sendStatus(404));
 });
 
-const createNewProfile = profileBody => {
+const createNewProfile = deviceProfile => {
 	const { input_frq, output_frq, baud,
 			rec_buff_size, volume_adjust, force_headset,
-			dir_output_wave } = profileBody.deviceProfile;
+			dir_output_wave } = deviceProfile;
 
 	const profile_hash = profilesUtils.generateSHA256HexString(input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_headset + dir_output_wave);
 
