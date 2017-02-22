@@ -47,9 +47,6 @@ profile: {
 */
 //TODO: comment route
 router.post('/', (req, res) => {
-
-	console.log('hit!');
-
 	const { manufacture, model, deviceProfile } = req.body;
 
 	if (!manufacture || !model)
