@@ -7,8 +7,7 @@ const profilesUtils = require('../../utilities/profiles');
 //TODO: commet route
 router.get('/', (req, res) => {
 	if(req.query.manufacture && req.query.model){
-		console.log(req.query);
-		devicesUtils.getDeviceByManufactureAndModelAndPopulate(req.query.manufacture, req.query.model)
+		devicesUtils.getDeviceByManufactureAndModelAndPopulateAndIncrementRequestedCount(req.query.manufacture, req.query.model)
 			.then(device => {
 				if(!device){
 					return res.sendStatus(404)

@@ -61,14 +61,35 @@ devicesUtils.getDeviceByManufactureAndModelAndPopulate = (manufacture, model) =>
     });
 };
 
+devicesUtils.getDeviceByManufactureAndModelAndPopulateAndIncrementRequestedCount = (manufacture, model) => {
+    return new Promise((resolve, reject) => {
+        devicesModel.findOneAndUpdate(
+            { manufacture, model },
+            { $inc: { 'meta.times_requested': 1 } },
+            { new: true }
+        )
+        .populate('profiles')
+        .exec((err, updatedProfile) => {
+            if (err) reject(err);
+
+            resolve(updatedProfile);
+        });
+    });
+};
+
 // This utility adds a profile to a specified device given a device ID and profile ID
 devicesUtils.addProfileForDevice = (deviceID, profileID) => {
     return new Promise((resolve, reject) => {
-        devicesModel.findByIdAndUpdate(deviceID, { $push: { 'profiles': profileID } }, (err, updatedDevice) => {
-            if (err) reject(err);
+        devicesModel.findByIdAndUpdate(
+            deviceID,
+            { $push: { 'profiles': profileID } },
+            { new: true },
+            (err, updatedDevice) => {
+                if (err) reject(err);
 
-            resolve(updatedDevice);
-        });
+                resolve(updatedDevice);
+            }
+        );
     });
 };
 
