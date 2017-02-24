@@ -5,3 +5,23 @@ div#result-device div p {
 div#result-profile div p {
   margin: 0px;
 }
+
+.hash-truncate {
+  max-width: 150px;
+  width: 10%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.id-truncate {
+  max-width: 150px;
+  width: 10%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date-line {
+  white-space: nowrap;
+}

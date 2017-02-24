@@ -93,6 +93,37 @@ devicesUtils.addProfileForDevice = (deviceID, profileID) => {
     });
 };
 
+// This utility retrives the device with the highest requested times
+devicesUtils.retrieveHighestRequestedDevice = () => {
+  return new Promise((resolve, reject) => {
+    devicesModel.findOne()
+    .sort('-meta.times_requested')
+    .exec(function (err, device) {
+      if (err){
+        reject(err);
+      } else {
+        resolve(device);
+      }
+    });
+  });
+};
+
+// This utility retrives the top (5) devices with the highest requested times
+devicesUtils.retrieveHighestRequestedDevices = () => {
+  return new Promise((resolve, reject) => {
+    devicesModel.find()
+    .sort('-meta.times_requested')
+    .limit(5)
+    .exec(function (err, device) {
+      if (err){
+        reject(err);
+      } else {
+        resolve(device);
+      }
+    });
+  });
+};
+
 // This utility lists all known devices in the DB
 devicesUtils.listAllDevices = () => {
   return new Promise((resolve, reject) => {

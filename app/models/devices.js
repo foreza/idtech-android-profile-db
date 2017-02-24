@@ -20,7 +20,8 @@ var DeviceSchema   = new Schema({
             default: Date.now
         },
         times_requested:{
-            type:Number
+            type:Number,
+            default: 0
         }
 
     }
