@@ -1,8 +1,24 @@
 
 /* Truncate functionality borrowed from css-tricks.com */
-.truncate {
-  width: 100px;
+.hash-truncate {
+  max-width: 150px;
+  width: 10%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.id-truncate {
+  max-width: 150px;
+  width: 10%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date-line {
+  white-space: nowrap;
+}
+
+
+/*TODO: Make this mobile responsive*/

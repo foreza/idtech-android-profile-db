@@ -22,6 +22,7 @@
 
   <!-- Scripts -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.js" type="text/javascript"></script>
   <script src="js/profiles.js" type="text/javascript"></script>
 
 
@@ -49,7 +50,10 @@
    <table class="bordered striped highlight centered">
        <thead>
          <tr>
+           <!-- TODO: Make Data field IDs appropriate -->
+            <th data-field="uid">Unique ID</th>
             <th data-field="id">Profile Hash</th>
+            <th data-field="date">Date Created</th>
             <th data-field="id">Input Frq</th>
             <th data-field="name">Output Frq</th>
             <th data-field="price">Baud</th>
