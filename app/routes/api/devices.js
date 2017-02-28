@@ -20,6 +20,7 @@ const profilesUtils = require('../../utilities/profiles');
  * 		/api/devices
  *
  * @apiSuccess {Object} device A specific device.
+ * @apiSuccess {Object[]} devices All devices in the database
  *
  * @apiSuccessExample {JSON} Success-Response-Example (device):
  *		 {
@@ -79,10 +80,8 @@ const profilesUtils = require('../../utilities/profiles');
  *		  }
  *		]
  *
- * @apiSuccess {Object[]} devices All devices in the database
- *
- * @apiError (Not Found 404) {String} Error Device was not found.
- * @apiError (Bad Request 400) {String} Error Request could not be processed.
+ * @apiError (Not Found 404) {String} Error The device was not found.
+ * @apiError (Bad Request 400) {String} Error The request could not be processed.
  */
 router.get('/', (req, res) => {
 	if(req.query.manufacture && req.query.model){
@@ -105,6 +104,59 @@ router.get('/', (req, res) => {
 	}
 });
 
+/**
+ * @api {POST} /api/devices POST /api/devices
+ * @apiDescription Attempts to add a device and profile to the database.
+ *
+ * There are three possible outcomes when using this route.
+ * 1) The device with the specified manufacture and model does not exist.
+ *
+ * Both the device and profile documents will be created. The profile document will be associated with the device document via an object ID and can be joined.
+ *
+ * 2) The device with the specified manufacture and model exists but the specified profile does not exist for that device.
+ *
+ * The new profile document will be created and the corresponding device document will have an assocation to the new profile document via an object ID.
+ *
+ * 3) The device with the specified manufacture and model exists and the specified profile already exist for the device.
+ *
+ * The route will return an OK status but nothing will be done regarding modifying the collections.
+ *
+ * @apiName PostDevices
+ * @apiGroup Devices
+ *
+ * @apiParam {Object} deviceAndProfile An object containing the device's manufacture, model, and desired profile attributes.
+ * @apiParam {String} deviceAndProfile.manufacture Device manufacture.
+ * @apiParam {String} deviceAndProfile.model Device model.
+ * @apiParam {Object} deviceAndProfile.deviceProfile The desired profile to add.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.input_frq The input frequency.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.output_frq The output frequency.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.baud The baud.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.rec_buff_size The recommended buffer size.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.volume_adjust The volume adjust.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.force_headset The force headset.
+ * @apiParam {Boolean} deviceAndProfile.deviceProfile.dir_output_wave The directional output wave.
+ *
+ * @apiParamExample {JSON} Request-Example:
+ * 		{
+ *			"model": "S7",
+ *			"manufacture": "Samsung",
+ *			"deviceProfile":
+ *			 {
+ *				 "input_frq": 2400,
+ *				 "output_frq": 4800,
+ *				 "baud": 7200,
+ *				 "rec_buff_size": 64,
+ *				 "volume_adjust": 1,
+ *				 "force_headset": 1,
+ *				 "dir_output_wave": true
+ *			 }
+ * 		}
+ *
+ * @apiSuccess {String} Success A device with the corresponding profile already exists.
+ * @apiSuccess (Created 201) {String} Success Either the new device and its corresponding profile has been created or a new profile was created for an existing device.
+ *
+ * @apiError (Bad Request 400) {String} Error The request could not be proccesed.
+ */
 router.post('/', (req, res) => {
 	const { manufacture, model, deviceProfile } = req.body;
 
