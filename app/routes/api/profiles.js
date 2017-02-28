@@ -103,6 +103,29 @@ router.get('/:id', (req, res) => {
   })
 });
 
+/**
+ * @api {PATCH} /api/profiles/increment/:id PATCH /api/profiles/increment/:id
+ * @apiDescription Increments a profile's device's success or failure counter.
+ * @apiName PatchProfilesIncrement
+ * @apiGroup Profiles
+ *
+ * @apiParam {Object} profileToPatch An object containing the device and field to increment.
+ * @apiParam {String="unimag_ii","shuttle","unipay","unipay_15","unipay_iii"} profileToPatch.reader The reader to increment the counter for.
+ * @apiParam {Boolean} profileToPatch.success Whether to increment the success or failure field.
+ *
+ * @apiParamExample {String} Request-Example (URL):
+ * 		/api/profiles/increment/58b5b6d71f5e070b14487a78
+ * 
+ * @apiParamExample {JSON} Request-Example (body):
+ * 		{
+ * 			"reader:": "unipay_15",
+ * 			"success": true
+ * 		}
+ *
+ * @apiSuccess {String} Success The device's success or failure counter for the corresponding profile was incremented.
+ *
+ * @apiError (Bad Request 400) Error The request could not be processed.
+ */
 router.patch('/increment/:id', (req, res) => {
 	const profileID = req.params.id;
 	const { reader, success } = req.body;
