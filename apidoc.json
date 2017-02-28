@@ -1,6 +1,5 @@
 {
     "name": "idtech-android-profile-api",
-    "version": "0.1.0",
     "description": "API for the Android profile database",
     "title": "Android Profile Database API",
     "header": {
