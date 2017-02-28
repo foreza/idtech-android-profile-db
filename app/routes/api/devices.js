@@ -105,7 +105,6 @@ router.get('/', (req, res) => {
 	}
 });
 
-//TODO: comment route
 router.post('/', (req, res) => {
 	const { manufacture, model, deviceProfile } = req.body;
 
