@@ -1,0 +1,9 @@
+{
+    "name": "idtech-android-profile-api",
+    "description": "API for the Android profile database",
+    "title": "Android Profile Database API",
+    "header": {
+        "title": "General",
+        "filename": "header.md"
+    }
+}
