@@ -47,7 +47,7 @@ $( document ).ready(function() {
     console.log(data);
     for (var i = 0; i < data.length; ++i){
       $( "<tr id='device-" + i + "'>" +
-      '<td>' + data[i].model + " " + data[i].manufacture + '</td>' +
+      '<td>' + data[i].manufacture + " " + data[i].model + '</td>' +
       '<td>' + data[i].meta.times_requested + '</td>' +
       '<td>' + data[i].profiles.length + '</td>' +
       "</tr>" ).appendTo( "#common-device-table" );
