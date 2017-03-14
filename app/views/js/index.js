@@ -26,6 +26,16 @@ $( document ).ready(function() {
   //   });
 
     // This function populates the devices "highest times requested"
+  $.get("api/devices", function( data ) {
+    $( "#total-devices").html(data.length);
+  });
+
+  // This function populates the devices "total devices"
+   $.get("api/profiles", function( data ) {
+    $( "#total-profiles").html(data.length);
+  });
+
+    // This function populates the devices "total profiles"
   $.get("admin/stats/device/highestTimesRequested", function( data ) {
     $( "#top-device").html(data.manufacture + " " +data.model);
     $( "#top-device-times-req").html(data.meta.times_requested);

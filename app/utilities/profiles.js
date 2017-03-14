@@ -45,6 +45,7 @@ profilesUtils.listAllProfiles = () => {
   });
 };
 
+
 profilesUtils.incrementDeviceCounter = (profileID, fieldToIncrement) => {
     const incrementSpecifications = {};
     incrementSpecifications[fieldToIncrement] = 1;

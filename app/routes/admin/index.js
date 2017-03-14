@@ -7,7 +7,8 @@ router.get('/', (req, res) => {
   res.sendfile('app/views/index.html')
 });
 
-//TODO: Provide better architecture for stats tracking.
+//TODO: Provide better architecture for stats tracking in v2
+
 //NOTE: Device for operations on (1) device / item
 router.get('/stats/device/highestTimesRequested', (req, res) => {
   devicesUtils.retrieveHighestRequestedDevice()

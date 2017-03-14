@@ -138,4 +138,5 @@ devicesUtils.listAllDevices = () => {
 });
 };
 
+
 module.exports = devicesUtils;
