@@ -80,7 +80,7 @@ const profilesUtils = require('../../utilities/profiles');
  *		  }
  *		]
  *
- * @apiError (Not Found 404) {String} Error The device was not found.
+ * @apiError (Not Found 404) {String} Error The device or devices could not be found.
  * @apiError (Bad Request 400) {String} Error The request could not be processed.
  */
 router.get('/', (req, res) => {
