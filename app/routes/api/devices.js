@@ -217,12 +217,11 @@ router.post('/', (req, res) => {
 });
 
 const createNewProfile = deviceProfile => {
-	const { input_frq, output_frq,baud,
-		rec_buff_size,rec_read_buffer_size,
-		volume_adjust, dir_output_wave,
-		use_voice_recognition, shuttle_channel,
-		powerup_when_swipe, powerup_last_before_cmd,
-		force_headset,reverse_audio_events } = deviceProfile;
+	const { input_frq, output_frq, baud,
+		rec_buff_size, rec_read_buffer_size, volume_adjust,
+		dir_output_wave, use_voice_recognition, shuttle_channel,
+		str_model, powerup_when_swipe, powerup_last_before_cmd,
+		force_headset, reverse_audio_events } = deviceProfile;
 
 	const profile_hash = profilesUtils.generateSHA256HexString(
 		input_frq +
@@ -240,13 +239,11 @@ const createNewProfile = deviceProfile => {
 		reverse_audio_events
 	);
 
-	return { profile_hash,
-		input_frq, output_frq,baud,
-		rec_buff_size,rec_read_buffer_size,
-		volume_adjust, dir_output_wave,
-		use_voice_recognition, shuttle_channel,
-		powerup_when_swipe, powerup_last_before_cmd,
-		force_headset,reverse_audio_events };
+	return { profile_hash, input_frq, output_frq,
+		baud, rec_buff_size, rec_read_buffer_size,
+		volume_adjust, dir_output_wave, use_voice_recognition,
+		shuttle_channel, str_model, powerup_when_swipe,
+		powerup_last_before_cmd, force_headset, reverse_audio_events };
 };
 
 const checkIfProfileExists = (profiles, profileHashToCheck) => {
