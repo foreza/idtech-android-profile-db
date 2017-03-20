@@ -23,40 +23,50 @@ const profilesUtils = require('../../utilities/profiles');
  * @apiSuccess {Object[]} devices All devices in the database
  *
  * @apiSuccessExample {JSON} Success-Response-Example (device):
- *		 {
- *		   "_id": "58b5b6d71f5e070b14487a79",
- *		   "manufacture": "Samsung",
- *		   "model": "S7",
- *		   "__v": 0,
- *		   "meta": {
- *		     "times_requested": 2,
- *		     "created_at": "2017-02-28T17:43:51.387Z"
- *		   },
- *		   "profiles": [
- *		     {
- *		       "_id": "58b5b6d71f5e070b14487a78",
- *		       "profile_hash": "11f372bf5fc808f640fc78fb8565bd6e7efdc0e64d011c07d34317f6dd87fad5",
- *		       "__v": 0,
- *		       "meta": {
- *		         "created_at": "2017-02-28T17:43:51.241Z"
- *		       },
- *			"input_frq" : 2400,              
- *			"output_frq" : 4800,      
- *			"baud" : 7200,           
- *			"rec_buff_size" : 0,       
- *			"rec_read_buffer_size" : 0,     
- *			"volume_adjust" : 0,          
- *			"dir_output_wave" : true,          
- *			"use_voice_recognition" : 0,       
- *			"shuttle_channel" : 48,    
- *			"str_model" : "",       
- *			"powerup_when_swipe" : 0,   
- *			"powerup_last_before_cmd" : 200,     
- *			"force_headset" : 0,          
- *			"reverse_audio_events" : 0,
- *		     }
- *		   ]
- *		 }
+ *    {
+ *      "_id": "58b5b6d71f5e070b14487a79",
+ *      "manufacture": "Samsung",
+ *      "model": "S7",
+ *      "__v": 0,
+ *      "meta": {
+ *        "times_requested": 2,
+ *        "created_at": "2017-02-28T17:43:51.387Z"
+ *      },
+ *      "profiles": [
+ *        {
+ *          "_id": "58b5b6d71f5e070b14487a78",
+ *          "profile_hash": "11f372bf5fc808f640fc78fb8565bd6e7efdc0e64d011c07d34317f6dd87fad5",
+ *          "__v": 0,
+ *          "meta": {
+ *            "created_at": "2017-02-28T17:43:51.241Z"
+ *          },
+ *          "unipay_iii_fail": 0,
+ *          "unipay_iii_suc": 0,
+ *          "unipay_15_fail": 0,
+ *          "unipay_15_suc": 0,
+ *          "unipay_fail": 0,
+ *          "unipay_suc": 0,
+ *          "shuttle_fail": 0,
+ *          "shuttle_suc": 0,
+ *          "unimag_ii_fail": 0,
+ *          "unimag_ii_suc": 0,
+ *          "reverse_audio_events": 0,
+ *          "force_headset": 0,
+ *          "powerup_last_before_cmd": 200,
+ *          "powerup_when_swipe": 0,
+ *          "str_model": "",
+ *          "shuttle_channel": 48,
+ *          "use_voice_recognition": 0,
+ *          "dir_output_wave": true,
+ *          "volume_adjust": 0,
+ *          "rec_read_buffer_size": 0,
+ *          "rec_buff_size": 0,
+ *          "baud": 7200,
+ *          "output_frq": 4800
+ *          "input_frq": 2400
+ *        }
+ *      ]
+ *    }
  *
  * @apiSuccessExample {JSON} Success-Response-Example (devices):
  *		 [
@@ -139,46 +149,45 @@ router.get('/', (req, res) => {
  * @apiParam {Number} deviceAndProfile.deviceProfile.output_frq The output frequency.
  * @apiParam {Number} deviceAndProfile.deviceProfile.baud The baud.
  * @apiParam {Number} deviceAndProfile.deviceProfile.rec_buff_size The recommended buffer size.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.rec_read_buffer_size The recommended read buffer size.
  * @apiParam {Number} deviceAndProfile.deviceProfile.volume_adjust The volume adjust.
- * @apiParam {Number} deviceAndProfile.deviceProfile.force_headset The force headset.
  * @apiParam {Boolean} deviceAndProfile.deviceProfile.dir_output_wave The directional output wave.
- * 
+ * @apiParam {Boolean} deviceAndProfile.deviceProfile.use_voice_recognition If voice recognition is allowed.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.shuttle_channel The shuttle channel.
+ * @apiParam {String} deviceAndProfile.deviceProfile.str_model The model string.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.powerup_when_swipe If the device should power up on swipe.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.powerup_last_before_cmd If the device should power up last before a command.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.force_headset The force headset.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.reverse_audio_events If audio events should be reversed.
  *
- * // TODO: UPDATE API PARAM Example to include new fields in below schema (3/19/17) 
- * 
- * // todo: update 
  * @apiParamExample {JSON} Request-Example:
- * 		{
- *			"model": "S7",
- *			"manufacture": "Samsung",
- *			"deviceProfile":
- *			 {
- *			"input_frq" : 2400,              
- *			"output_frq" : 4800,      
- *			"baud" : 7200,           
- *			"rec_buff_size" : 0,       
- *			"rec_read_buffer_size" : 0,     
- *			"volume_adjust" : 0,          
- *			"dir_output_wave" : true,          
- *			"use_voice_recognition" : 0,       
- *			"shuttle_channel" : 48,    
- *			"str_model" : "",       
- *			"powerup_when_swipe" : 0,   
- *			"powerup_last_before_cmd" : 200,     
- *			"force_headset" : 0,          
- *			"reverse_audio_events" : 0,
- *			 }
- * 		}
+ *    {
+ *      "model": "S7",
+ *      "manufacture": "Samsung",
+ *      "deviceProfile":
+ *      {
+ *        "input_frq" : 2400,
+ *        "output_frq" : 4800,
+ *        "baud" : 7200,
+ *        "rec_buff_size" : 0,
+ *        "rec_read_buffer_size" : 0,
+ *        "volume_adjust" : 0,
+ *        "dir_output_wave" : true,
+ *        "use_voice_recognition" : 0,
+ *        "shuttle_channel" : 48,
+ *        "str_model" : "",
+ *        "powerup_when_swipe" : 0,
+ *        "powerup_last_before_cmd" : 200,
+ *        "force_headset" : 0,
+ *        "reverse_audio_events" : 0,
+ *      }
+ *    }
  *
  * @apiSuccess {String} Success A device with the corresponding profile already exists.
  * @apiSuccess (Created 201) {String} Success Either the new device and its corresponding profile has been created or a new profile was created for an existing device.
  *
  * @apiError (Bad Request 400) {String} Error The request could not be proccesed.
  */
-
-
-
-
 router.post('/', (req, res) => {
 	const { manufacture, model, deviceProfile } = req.body;
 
@@ -208,36 +217,33 @@ router.post('/', (req, res) => {
 });
 
 const createNewProfile = deviceProfile => {
-	const { input_frq, output_frq,baud,
-		rec_buff_size,rec_read_buffer_size,
-		volume_adjust, dir_output_wave,
-		use_voice_recognition, shuttle_channel,
-		powerup_when_swipe, powerup_last_before_cmd,
-		force_headset,reverse_audio_events } = deviceProfile;
+	const { input_frq, output_frq, baud,
+		rec_buff_size, rec_read_buffer_size, volume_adjust,
+		dir_output_wave, use_voice_recognition, shuttle_channel,
+		str_model, powerup_when_swipe, powerup_last_before_cmd,
+		force_headset, reverse_audio_events } = deviceProfile;
 
 	const profile_hash = profilesUtils.generateSHA256HexString(
-		input_frq + 
-		output_frq + 
-		baud + 
-		rec_buff_size + 
-		rec_read_buffer_size + 
-		volume_adjust + 
-		dir_output_wave + 
+		input_frq +
+		output_frq +
+		baud +
+		rec_buff_size +
+		rec_read_buffer_size +
+		volume_adjust +
+		dir_output_wave +
 		use_voice_recognition +
 		shuttle_channel +
-		powerup_when_swipe + 
-		powerup_last_before_cmd + 
-		force_headset + 
-		reverse_audio_events  
+		powerup_when_swipe +
+		powerup_last_before_cmd +
+		force_headset +
+		reverse_audio_events
 	);
 
-	return { profile_hash,
-		input_frq, output_frq,baud,
-		rec_buff_size,rec_read_buffer_size,
-		volume_adjust, dir_output_wave,
-		use_voice_recognition, shuttle_channel,
-		powerup_when_swipe, powerup_last_before_cmd,
-		force_headset,reverse_audio_events };
+	return { profile_hash, input_frq, output_frq,
+		baud, rec_buff_size, rec_read_buffer_size,
+		volume_adjust, dir_output_wave, use_voice_recognition,
+		shuttle_channel, str_model, powerup_when_swipe,
+		powerup_last_before_cmd, force_headset, reverse_audio_events };
 };
 
 const checkIfProfileExists = (profiles, profileHashToCheck) => {
