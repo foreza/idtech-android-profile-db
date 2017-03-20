@@ -108,30 +108,41 @@ router.get('/', (req, res) => {
  * @apiSuccess {Object} profile A specific profile.
  *
  * @apiSuccessExample {JSON} Success-Response-Example:
- *	 [
- *	   {
- *	     "_id": "58b5b6d71f5e070b14487a78",
- *	     "profile_hash": "11f372bf5fc808f640fc78fb8565bd6e7efdc0e64d011c07d34317f6dd87fad5",
- *	     "__v": 0,
- *	     "meta": {
- *	       "created_at": "2017-02-28T17:43:51.241Z"
- *	     },
- *			"input_frq" : 2400,
- *			"output_frq" : 4800,
- *			"baud" : 7200,
- *			"rec_buff_size" : 0,
- *			"rec_read_buffer_size" : 0,
- *			"volume_adjust" : 0,
- *			"dir_output_wave" : true,
- *			"use_voice_recognition" : 0,
- *			"shuttle_channel" : 48,
- *			"str_model" : "",
- *			"powerup_when_swipe" : 0,
- *			"powerup_last_before_cmd" : 200,
- *			"force_headset" : 0,
- *			"reverse_audio_events" : 0,
- *	   }
- *	 ]
+ *    [
+ *      {
+ *        "_id": "58b5b6d71f5e070b14487a78",
+ *        "profile_hash": "11f372bf5fc808f640fc78fb8565bd6e7efdc0e64d011c07d34317f6dd87fad5",
+ *        "__v": 0,
+ *        "meta": {
+ *          "created_at": "2017-02-28T17:43:51.241Z"
+ *        },
+ *        "unipay_iii_fail": 0,
+ *        "unipay_iii_suc": 0,
+ *        "unipay_15_fail": 0,
+ *        "unipay_15_suc": 0,
+ *        "unipay_fail": 0,
+ *        "unipay_suc": 0,
+ *        "shuttle_fail": 0,
+ *        "shuttle_suc": 0,
+ *        "unimag_ii_fail": 0,
+ *        "unimag_ii_suc": 0,
+ *        "reverse_audio_events": 0,
+ *        "force_headset": 0,
+ *        "powerup_last_before_cmd": 200,
+ *        "powerup_when_swipe": 0,
+ *        "str_model": "",
+ *        "shuttle_channel": 48,
+ *        "use_voice_recognition": 0,
+ *        "dir_output_wave": true,
+ *        "volume_adjust": 0,
+ *        "rec_read_buffer_size": 0,
+ *        "rec_buff_size": 0,
+ *        "baud": 7200,
+ *        "output_frq": 4800,
+ *        "input_frq": 2400
+ *      }
+ *    ]
+ *
  * @apiError (Not Found 404) {String} Error A device was not found.
  */
 router.get('/:id', (req, res) => {
@@ -158,10 +169,10 @@ router.get('/:id', (req, res) => {
  * 		/api/profiles/increment/58b5b6d71f5e070b14487a78
  *
  * @apiParamExample {JSON} Request-Example (body):
- * 		{
- * 			"reader:": "unipay_15",
- * 			"success": true
- * 		}
+ *    {
+ *      "reader:": "unipay_15",
+ *      "success": true
+ *    }
  *
  * @apiSuccess {String} Success The device's success or failure counter for the corresponding profile was incremented.
  *
