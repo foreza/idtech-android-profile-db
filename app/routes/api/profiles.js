@@ -82,13 +82,20 @@ router.get('/', (req, res) => {
  *	     "meta": {
  *	       "created_at": "2017-02-28T17:43:51.241Z"
  *	     },
- *	     "dir_output_wave": true,
- *	     "force_headset": 1,
- *	     "volume_adjust": 1,
- *	     "rec_buff_size": 64,
- *	     "baud": 7200,
- *	     "output_frq": 4800,
- *	     "input_frq": 2400
+ *			"input_frq" : 2400,              
+ *			"output_frq" : 4800,      
+ *			"baud" : 7200,           
+ *			"rec_buff_size" : 0,       
+ *			"rec_read_buffer_size" : 0,     
+ *			"volume_adjust" : 0,          
+ *			"dir_output_wave" : true,          
+ *			"use_voice_recognition" : 0,       
+ *			"shuttle_channel" : 48,    
+ *			"str_model" : "",       
+ *			"powerup_when_swipe" : 0,   
+ *			"powerup_last_before_cmd" : 200,     
+ *			"force_headset" : 0,          
+ *			"reverse_audio_events" : 0,
  *	   }
  *	 ]
  * @apiError (Not Found 404) {String} Error A device was not found.

@@ -40,13 +40,20 @@ const profilesUtils = require('../../utilities/profiles');
  *		       "meta": {
  *		         "created_at": "2017-02-28T17:43:51.241Z"
  *		       },
- *		       "dir_output_wave": true,
- *		       "force_headset": 1,
- *		       "volume_adjust": 1,
- *		       "rec_buff_size": 64,
- *		       "baud": 7200,
- *		       "output_frq": 4800,
- *		       "input_frq": 2400
+ *			"input_frq" : 2400,              
+ *			"output_frq" : 4800,      
+ *			"baud" : 7200,           
+ *			"rec_buff_size" : 0,       
+ *			"rec_read_buffer_size" : 0,     
+ *			"volume_adjust" : 0,          
+ *			"dir_output_wave" : true,          
+ *			"use_voice_recognition" : 0,       
+ *			"shuttle_channel" : 48,    
+ *			"str_model" : "",       
+ *			"powerup_when_swipe" : 0,   
+ *			"powerup_last_before_cmd" : 200,     
+ *			"force_headset" : 0,          
+ *			"reverse_audio_events" : 0,
  *		     }
  *		   ]
  *		 }
@@ -135,20 +142,31 @@ router.get('/', (req, res) => {
  * @apiParam {Number} deviceAndProfile.deviceProfile.volume_adjust The volume adjust.
  * @apiParam {Number} deviceAndProfile.deviceProfile.force_headset The force headset.
  * @apiParam {Boolean} deviceAndProfile.deviceProfile.dir_output_wave The directional output wave.
+ * 
  *
+ * // TODO: UPDATE API PARAM Example to include new fields in below schema (3/19/17) 
+ * 
+ * // todo: update 
  * @apiParamExample {JSON} Request-Example:
  * 		{
  *			"model": "S7",
  *			"manufacture": "Samsung",
  *			"deviceProfile":
  *			 {
- *				 "input_frq": 2400,
- *				 "output_frq": 4800,
- *				 "baud": 7200,
- *				 "rec_buff_size": 64,
- *				 "volume_adjust": 1,
- *				 "force_headset": 1,
- *				 "dir_output_wave": true
+ *			"input_frq" : 2400,              
+ *			"output_frq" : 4800,      
+ *			"baud" : 7200,           
+ *			"rec_buff_size" : 0,       
+ *			"rec_read_buffer_size" : 0,     
+ *			"volume_adjust" : 0,          
+ *			"dir_output_wave" : true,          
+ *			"use_voice_recognition" : 0,       
+ *			"shuttle_channel" : 48,    
+ *			"str_model" : "",       
+ *			"powerup_when_swipe" : 0,   
+ *			"powerup_last_before_cmd" : 200,     
+ *			"force_headset" : 0,          
+ *			"reverse_audio_events" : 0,
  *			 }
  * 		}
  *
@@ -157,6 +175,10 @@ router.get('/', (req, res) => {
  *
  * @apiError (Bad Request 400) {String} Error The request could not be proccesed.
  */
+
+
+
+
 router.post('/', (req, res) => {
 	const { manufacture, model, deviceProfile } = req.body;
 
@@ -186,13 +208,36 @@ router.post('/', (req, res) => {
 });
 
 const createNewProfile = deviceProfile => {
-	const { input_frq, output_frq, baud,
-			rec_buff_size, volume_adjust, force_headset,
-			dir_output_wave } = deviceProfile;
+	const { input_frq, output_frq,baud,
+		rec_buff_size,rec_read_buffer_size,
+		volume_adjust, dir_output_wave,
+		use_voice_recognition, shuttle_channel,
+		powerup_when_swipe, powerup_last_before_cmd,
+		force_headset,reverse_audio_events } = deviceProfile;
 
-	const profile_hash = profilesUtils.generateSHA256HexString(input_frq + output_frq + baud + rec_buff_size + volume_adjust + force_headset + dir_output_wave);
+	const profile_hash = profilesUtils.generateSHA256HexString(
+		input_frq + 
+		output_frq + 
+		baud + 
+		rec_buff_size + 
+		rec_read_buffer_size + 
+		volume_adjust + 
+		dir_output_wave + 
+		use_voice_recognition +
+		shuttle_channel +
+		powerup_when_swipe + 
+		powerup_last_before_cmd + 
+		force_headset + 
+		reverse_audio_events  
+	);
 
-	return { profile_hash, input_frq, output_frq, baud, rec_buff_size, volume_adjust, force_headset, dir_output_wave };
+	return { profile_hash,
+		input_frq, output_frq,baud,
+		rec_buff_size,rec_read_buffer_size,
+		volume_adjust, dir_output_wave,
+		use_voice_recognition, shuttle_channel,
+		powerup_when_swipe, powerup_last_before_cmd,
+		force_headset,reverse_audio_events };
 };
 
 const checkIfProfileExists = (profiles, profileHashToCheck) => {
