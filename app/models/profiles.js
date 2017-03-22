@@ -7,27 +7,27 @@ var ProfileSchema = new Schema({
       type: Number, default: 2400 },
     output_frq: {                               // private int frequencyOutput = '뮀';
       type: Number, default: 4800 },
-    baud: {                                     // private int baudRate = 9600; 
-      type: Number, default: 7200 },
-    rec_buff_size: {                            // private int iRecordBufferSize = 0; 
+    baud: {                                     // private int baudRate = 9600;
+      type: Number, default: 9600 },
+    rec_buff_size: {                            // private int iRecordBufferSize = 0;
       type: Number, default: 0 },
-    rec_read_buffer_size: {                     // private int iRecordReadBufferSize = 0; 
+    rec_read_buffer_size: {                     // private int iRecordReadBufferSize = 0;
       type: Number, default: 0 },
-    volume_adjust: {                            // private short volumeLevelAdjust = 0; 
+    volume_adjust: {                            // private short volumeLevelAdjust = 0;
       type: Number, default: 0 },
-    dir_output_wave: {                          // private short directionOutputWave = 0; 
-      type: Boolean, default: true },
-    use_voice_recognition: {                    // private short useVOICE_RECOGNIZITION = 0; 
+    dir_output_wave: {                          // private short directionOutputWave = 0;
+      type: Number, default: 0 },
+    use_voice_recognition: {                    // private short useVOICE_RECOGNIZITION = 0;
       type: Number, default: 0 },
     shuttle_channel: {                          // private byte shuttleChannel = 48;
       type: Number, default: 48 },
-    str_model: {                                // private String strModel = ""; 
+    str_model: {                                // private String strModel = "";
       type: String, default: "" },
     powerup_when_swipe: {                       // private short powerupWhenSwipe = 0;
       type: Number, default: 0 },
-    powerup_last_before_cmd: {                  // private short powerupLastBeforeCMD = 200; 
+    powerup_last_before_cmd: {                  // private short powerupLastBeforeCMD = 200;
       type: Number, default: 200 },
-    force_headset: {                            // private short forceHeadsetPlug = 0;  
+    force_headset: {                            // private short forceHeadsetPlug = 0;
       type: Number, default: 0 },
     reverse_audio_events: {                     // private short reverseAudioEvents = 0;
       type: Number, default: 0 },
