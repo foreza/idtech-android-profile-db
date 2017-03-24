@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lte IE 6]><html class="preIE7 preIE8 preIE9"><![endif]-->
-<!--[if IE 7]><html class="preIE8 preIE9"><![endif]-->
-<!--[if IE 8]><html class="preIE9"><![endif]-->
-<!--[if gte IE 9]><!--><html><!--<![endif]-->
 <head>
 
 
@@ -22,6 +18,7 @@
 
   <!-- Scripts -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
   <script src="js/devices.js" type="text/javascript"></script>
 
 
@@ -54,12 +51,28 @@
              <th data-field="id">Device Model</th>
              <th data-field="name">Device Manufacture</th>
              <th data-field="price"># of Associated Profiles</th>
+             <th data-field="query">View Profiles</th>
          </tr>
        </thead>
 
        <tbody id="device-table">
        </tbody>
      </table>
+
+      <!-- Modal Structure -->
+  <div id="profile-modal" class="modal">
+    <div class="modal-content">
+      <h4>Associated Profiles</h4>
+        <div id="modal-replace">
+            <p>A bunch of text</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+          
+
 </div>
 
   <!-- Footer -->
