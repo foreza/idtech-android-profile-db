@@ -6,7 +6,9 @@ var bodayParser = require('body-parser');
 var mongoose = require('mongoose');
 
 // connect to Mongo DB here
+// TODO: Set ENV variables, and allow mongo to fail gracefully
 mongoose.connect('localhost/android-profile-db');
+
 var Device = require("./app/models/devices");
 var Profile = require("./app/models/devices");
 

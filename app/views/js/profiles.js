@@ -17,9 +17,16 @@ $( document ).ready(function() {
       '<td>' + data[i].output_frq + '</td>' +
       '<td>' + data[i].baud + '</td>' +
       '<td>' + data[i].rec_buff_size + '</td>' +
+      '<td>' + data[i].rec_read_buffer_size + '</td>' +
       '<td>' + data[i].volume_adjust + '</td>' +
-      '<td>' + data[i].force_headset + '</td>' +
       '<td>' + data[i].dir_output_wave + '</td>' +
+      '<td>' + data[i].use_voice_recognition + '</td>' +
+      '<td>' + data[i].shuttle_channel + '</td>' +
+      '<td>' + data[i].str_model + '</td>' +
+      '<td>' + data[i].powerup_when_swipe + '</td>' +
+      '<td>' + data[i].powerup_last_before_cmd + '</td>' +
+      '<td>' + data[i].force_headset + '</td>' +
+      '<td>' + data[i].reverse_audio_events + '</td>' +
       "</tr>" ).appendTo( "#profile-table" );
       }
     });
