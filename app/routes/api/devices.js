@@ -57,7 +57,7 @@ const profilesUtils = require('../../utilities/profiles');
  *          "str_model": "",
  *          "shuttle_channel": 48,
  *          "use_voice_recognition": 0,
- *          "dir_output_wave": true,
+ *          "dir_output_wave": 0,
  *          "volume_adjust": 0,
  *          "rec_read_buffer_size": 0,
  *          "rec_buff_size": 0,
@@ -151,8 +151,8 @@ router.get('/', (req, res) => {
  * @apiParam {Number} deviceAndProfile.deviceProfile.rec_buff_size The recommended buffer size.
  * @apiParam {Number} deviceAndProfile.deviceProfile.rec_read_buffer_size The recommended read buffer size.
  * @apiParam {Number} deviceAndProfile.deviceProfile.volume_adjust The volume adjust.
- * @apiParam {Boolean} deviceAndProfile.deviceProfile.dir_output_wave The directional output wave.
- * @apiParam {Boolean} deviceAndProfile.deviceProfile.use_voice_recognition If voice recognition is allowed.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.dir_output_wave The directional output wave.
+ * @apiParam {Number} deviceAndProfile.deviceProfile.use_voice_recognition If voice recognition is allowed.
  * @apiParam {Number} deviceAndProfile.deviceProfile.shuttle_channel The shuttle channel.
  * @apiParam {String} deviceAndProfile.deviceProfile.str_model The model string.
  * @apiParam {Number} deviceAndProfile.deviceProfile.powerup_when_swipe If the device should power up on swipe.
@@ -172,7 +172,7 @@ router.get('/', (req, res) => {
  *        "rec_buff_size" : 0,
  *        "rec_read_buffer_size" : 0,
  *        "volume_adjust" : 0,
- *        "dir_output_wave" : true,
+ *        "dir_output_wave" : 0,
  *        "use_voice_recognition" : 0,
  *        "shuttle_channel" : 48,
  *        "str_model" : "",
