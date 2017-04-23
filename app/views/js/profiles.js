@@ -22,7 +22,7 @@ $( document ).ready(function() {
       '<td>' + data[i].dir_output_wave + '</td>' +
       '<td>' + data[i].use_voice_recognition + '</td>' +
       '<td>' + data[i].shuttle_channel + '</td>' +
-      '<td>' + data[i].str_model + '</td>' +
+      // '<td>' + data[i].str_model + '</td>' +
       '<td>' + data[i].powerup_when_swipe + '</td>' +
       '<td>' + data[i].powerup_last_before_cmd + '</td>' +
       '<td>' + data[i].force_headset + '</td>' +

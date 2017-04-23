@@ -1,7 +1,7 @@
 
 /* Truncate functionality borrowed from css-tricks.com */
 .hash-truncate {
-  max-width: 150px;
+  max-width: 50px;
   width: 10%;
   white-space: nowrap;
   overflow: hidden;
@@ -9,7 +9,7 @@
 }
 
 .id-truncate {
-  max-width: 150px;
+  max-width: 50px;
   width: 10%;
   white-space: nowrap;
   overflow: hidden;
