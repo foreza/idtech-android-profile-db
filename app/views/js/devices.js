@@ -48,7 +48,7 @@ function _displayAssociatedProfiles (i) {
       '<p>' + 'dir_output_wave: '+ rd[0].dir_output_wave + '</p>' +
       '<p>' + 'use_voice_recognition: '+ rd[0].use_voice_recognition + '</p>' +
       '<p>' + 'shuttle_channel: '+ rd[0].shuttle_channel + '</p>' +
-      '<p>' + 'str_model: '+ rd[0].str_model + '</p>' +
+      // '<p>' + 'str_model: '+ rd[0].str_model + '</p>' +
       '<p>' + 'powerup_when_swipe: '+ rd[0].powerup_when_swipe + '</p>' +
       '<p>' + 'powerup_last_before_cmd: '+ rd[0].powerup_last_before_cmd + '</p>' +
       '<p>' + 'force_headset: '+ rd[0].force_headset + '</p>' +
