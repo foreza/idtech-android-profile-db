@@ -17,11 +17,12 @@
   <!-- StyleSheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" type="text/css">
   <link rel="stylesheet" href="css/idtTheme.css" type="text/css">
-  <link rel="stylesheet" href="css/index.css" type="text/css">
+  <link rel="stylesheet" href="css/new.css" type="text/css">
 
 
   <!-- Scripts -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
   <script src="js/new.js" type="text/javascript"></script>
 
 
@@ -51,12 +52,12 @@
        Use the below form to add a new device and corresponding profile. 
    </p>
 
-   <form onsubmit="submitForm()">
+   <form onsubmit="return submitForm()">
        
        <h4>Device Info:</h4>
 
        <span>Device Model: <input id="device_model" type="text" required/></span>
-       <span>Device Make: <input id="device_make" type="text" required/></span>
+       <span>Device Manufacturer: <input id="device_make" type="text" required/></span>
        <br/>
         
        <input type="submit" class="waves-effect waves-light btn"> 
@@ -73,7 +74,9 @@
        <span>Rec Read Buff Size<input id="rec_read_buffer_size" type="number" placeholder="0"/></span>
        <span>Shuttle Channel<input id="shuttle_channel" type="number" placeholder="48"/></span>
        <span>Str Model<input id="str_model" type="text" placeholder="leave this blank"/></span>
-       
+       <span>PowerUp Last Before Cmd<input id="powerup_last_before_cmd" type="number" placeholder="200"/>
+       <br/>
+
        <input id="volume_adjust" type="checkbox"/>
        <label for="volume_adjust">Volume Adjust</label>
        <br/>
@@ -90,9 +93,6 @@
        <label for="powerup_when_swipe">Power up when Swipe</label>
        <br/>
        
-       <input id="powerup_last_before_cmd" type="checkbox"/>
-       <label for="powerup_last_before_cmd">Powerup Last Before Cmd</label>
-       <br/>
        
        <input id="force_headset" type="checkbox"/>
        <label for="force_headset">Force Headset</label>
@@ -102,26 +102,29 @@
        <label for="reverse_audio_events">Reverse Audio Events</label>
        <br/><br/><br/>
 
-
-
         <input type="submit" class="waves-effect waves-light btn"> 
-
-
-
-
-
-
 
    </form>
 
 
 
-
-
 </br>
 </br>
 </br>
 
+
+ <!-- Modal for Confirmation -->
+  <div id="new-modal" class="modal">
+    <div class="modal-content">
+      <h4>Submitted!</h4>
+        <div id="modal-replace">
+            <p>A bunch of text</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
 
 </div>
 
