@@ -16,7 +16,13 @@ const profilesUtils = require('../../utilities/profiles');
  * @apiParamExample {Query} Request-Example (device):
  * 		/api/devices?manufacture=Samsung&model=S7
  *
- * @apiParamExample {Query} Request-Example (devies):
+ * @apiParamExample {Query} Request-Example (devices):
+ * 		/api/devices?manufacture=Samsung
+ *
+ * @apiParamExample {Query} Request-Example (devices):
+ * 		/api/devices?model=S7
+ *
+ * @apiParamExample {Query} Request-Example (devices):
  * 		/api/devices
  *
  * @apiSuccess {Object} device A specific device.
