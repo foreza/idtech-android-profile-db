@@ -37,12 +37,33 @@ devicesUtils.getDeviceByIDAndPopulate = deviceID => {
     });
 }
 
-// This utility returns a device given a manufacture and model
+// This utility returns a device given a manufacture and model.  Note: This will not populate.
 devicesUtils.getDeviceByManufactureAndModel = (manufacture, model) => {
     return new Promise((resolve, reject) => {
         devicesModel.find({ manufacture, model }, (err, device) => {
             if (err) reject(err);
 
+            resolve(device[0]);
+        });
+    });
+};
+
+// This utility returns a device given a manufacture.  Note: This will not populate.
+devicesUtils.getDeviceByManufacture= (manufacture) => {
+    return new Promise((resolve, reject) => {
+        devicesModel.find({ manufacture }, (err, device) => {
+            if (err) reject(err);
+
+            resolve(device[0]);
+        });
+    });
+};
+
+// This utility returns a device given a model. Note: This will not populate.
+devicesUtils.getDeviceByModel = (model) => {
+    return new Promise((resolve, reject) => {
+        devicesModel.find({ model }, (err, device) => {
+            if (err) reject(err);
             resolve(device[0]);
         });
     });

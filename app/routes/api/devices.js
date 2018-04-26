@@ -101,6 +101,9 @@ const profilesUtils = require('../../utilities/profiles');
  * @apiError (Bad Request 400) {String} Error The request could not be processed.
  */
 router.get('/', (req, res) => {
+
+	console.log('req: man' + req.query.manufacture + " mod " + req.query.model);
+
 	if(req.query.manufacture && req.query.model){
 		devicesUtils.getDeviceByManufactureAndModelAndPopulateAndIncrementRequestedCount(req.query.manufacture, req.query.model)
 			.then(device => {
@@ -110,7 +113,43 @@ router.get('/', (req, res) => {
 					return res.send(device);
 				}
 			});
-	}	else{
+	}	
+
+	else if (req.query.manufacture) {
+
+		console.log('manufacture case');
+
+
+		devicesUtils.getDeviceByManufacture(req.query.manufacture)
+			.then(device => {
+				if(!device){
+					return res.sendStatus(404)
+				}else{
+					return res.send(device);
+				}
+			});
+	}
+
+	else if (req.query.model) {
+
+				console.log('model case');
+
+		devicesUtils.getDeviceByModel(req.query.model)
+			.then(device => {
+				if(!device){
+					return res.sendStatus(404)
+				}else{
+					return res.send(device);
+				}
+			});
+	}
+
+
+
+	else{
+
+		console.log('last case');
+
 		devicesUtils.listAllDevices().then(deviceList => {
 			if (!deviceList){
 				return res.sendStatus(400);
